@@ -73,6 +73,7 @@ public class ProfileSection extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                     user.delete();
+                    //deleteAppData();
 
                 Intent in = new Intent(ProfileSection.this, LoginActivity.class);
                 finish();
@@ -84,5 +85,17 @@ public class ProfileSection extends AppCompatActivity {
         });
 
     }
+
+//    private void deleteAppData() {
+//        try {
+//            // clearing app data
+//            String packageName = getApplicationContext().getPackageName();
+//            Runtime runtime = Runtime.getRuntime();
+//            runtime.exec("pm clear "+packageName);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }
