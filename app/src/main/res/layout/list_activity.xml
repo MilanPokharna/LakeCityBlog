@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/tools"
+    android:padding="10dp"
+    android:orientation="vertical"
+    app:ignore="NamespaceTypo">
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="10sp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8sp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:padding="5sp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/imagendusername">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/profileImage"
+                    android:layout_width="56sp"
+                    android:layout_height="56sp"
+                    android:src="@mipmap/camera_ion"
+                    app:civ_border_width="2sp"
+                    app:civ_border_color="#FF000000"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="User name"
+                    android:id="@+id/userName"
+                    android:layout_marginLeft="16sp"
+                    android:layout_marginTop="8sp"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_marginTop="16sp"
+                android:layout_height="wrap_content"
+                android:id="@+id/postImage"
+                android:layout_below="@id/imagendusername"
+                android:src="@mipmap/dada"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Its a Title"
+                android:id="@+id/postTitle"
+                android:layout_marginTop="10sp"
+                android:textStyle="bold"
+                android:layout_below="@id/postImage"
+                android:textSize="14sp"/>
+            <com.borjabravo.readmoretextview.ReadMoreTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:trimMode="TrimModeLenght"
+                app:colorClickableText="#161ccc"
+                app:trimExpandedText="Show More"
+                app:trimColapsedText="Show Less"
+                app:trimlength="30"
+                android:text="Its a description "
+                android:id="@+id/postDescription"
+                android:layout_marginTop="10sp"
+                android:layout_below="@id/postTitle"
+                android:textSize="12sp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/postDescription"
+                android:weightSum="1"
+                >
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:textSize="14sp"
+                    android:layout_height="wrap_content"
+                    android:text="Up Votes :"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="14sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="10sp"
+                    android:id="@+id/uptext"
+                    android:text="52"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:textSize="14sp"
+                    android:layout_height="wrap_content"
+                    android:text="Down Votes :"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="14sp"
+                    android:id="@+id/downtext"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="10sp"
+                    android:text="52"/>
+                <ImageButton
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:id="@+id/imgUp"
+                    android:src="@mipmap/likethumb"
+                    android:padding="10sp"
+                    android:scaleType="centerInside"
+                    android:background="#00000000"/>
+
+
+                <ImageButton
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:id="@+id/imgdown"
+                    android:scaleType="centerInside"
+                    android:padding="10sp"
+                    android:src="@mipmap/unlikethumb"
+                    android:background="#00000000"
+                    />
+            </LinearLayout>
+
+        </RelativeLayout>
+        </android.support.v7.widget.CardView>
+</LinearLayout>

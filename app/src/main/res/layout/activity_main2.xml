@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Main2Activity"
+    android:background="#FFFFFF"
+    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:weightSum="3"
+            android:padding="6dp"
+            android:id="@+id/relative1">
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profileImage"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginRight="16dp"
+                android:src="@mipmap/camera_ion"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#000000"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="UserName"
+                android:id="@+id/userName"
+                android:textStyle="bold"
+                android:layout_weight="2"
+                />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/relative1"
+            android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <ImageView
+            android:id="@+id/basic"
+            android:visibility="gone"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/closeButton"
+                android:visibility="gone"
+                android:src="@drawable/ic_close_black_24dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="#00000000"/>
+        </RelativeLayout>
+            <EditText
+            android:padding="6dp"
+            android:layout_width="match_parent"
+            android:layout_alignBottom="@id/basic"
+            android:layout_height="wrap_content"
+            android:id="@+id/postTitle"
+            android:background="@drawable/bg_edit_text"
+            android:layout_below="@id/relative1"
+            android:hint="Title of Your post"
+            android:textStyle="bold"
+            />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:scrollbars="vertical"
+            android:paddingTop="6dp"
+            android:paddingLeft="6dp"
+            android:layout_alignBottom="@id/basic"
+            android:paddingBottom="50dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/postDescription"
+            android:background="@android:color/transparent"
+            android:layout_below="@id/relative1"
+            android:hint="What's on your mind ?"
+            android:textSize="25dp"/>
+        </LinearLayout>
+    </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:weightSum="2">
+
+        <ImageView
+            android:id="@+id/Clickphoto"
+            android:layout_width="match_parent"
+            android:clickable="true"
+            android:onClick="clickphoto"
+            android:padding="10dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:src="@mipmap/camera_ion" />
+
+        <ImageView
+            android:clickable="true"
+            android:padding="10dp"
+            android:id="@+id/TAkephoto"
+            android:onClick="Gallery"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:src="@mipmap/unnamed1" />
+    </LinearLayout>
+</RelativeLayout>
