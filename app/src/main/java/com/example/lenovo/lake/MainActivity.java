@@ -36,7 +36,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-FirebaseUser user;
+    FirebaseUser user;
     DatabaseReference databaseReference;
     public SwipeRefreshLayout swipeRefreshLayout;
     ProgressDialog progressDialog;
@@ -54,22 +54,16 @@ FirebaseUser user;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         recyclerView.setHasFixedSize(true);
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user ==null){
-            Intent in = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(in);
-            finish();
-        }
-
 
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-        progressDialog = new ProgressDialog(MainActivity.this);
-        progressDialog.setMessage("Please Wait....");
-        progressDialog.show();
+
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("root").child("Blog");
 
@@ -90,17 +84,22 @@ FirebaseUser user;
                     public void onRefresh() {
 
                         //adapter = new RecyclerViewAdapter(MainActivity.this, list,stringList);
-//                        Intent intent = new Intent(MainActivity.this,MainActivity.class);
-//                        startActivity(intent);
+                        Intent intent = new Intent(MainActivity.this,MainActivity.class);
+                        finish();
+                        startActivity(intent);
 
-                        adapter = new RecyclerViewAdapter(MainActivity.this, list,stringList);
 
-                        recyclerView.setAdapter(adapter);
+//                        adapter = new RecyclerViewAdapter(MainActivity.this, list,stringList);
+//
+//                        recyclerView.setAdapter(adapter);
 
 
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 });
+                progressDialog = new ProgressDialog(MainActivity.this);
+                progressDialog.setMessage("Please Wait....");
+                progressDialog.show();
                adapter = new RecyclerViewAdapter(MainActivity.this, list,stringList);
 
                 recyclerView.setAdapter(adapter);

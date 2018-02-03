@@ -54,6 +54,7 @@ public class Main2Activity extends AppCompatActivity{
     public DatabaseReference myref;
     public DatabaseReference mchild;
     public StorageReference storeimage;
+    StorageReference filepath;
     File photoFile;
     private final static int RESULT_LOAD_IMAGE = 1;
     private final static int REQUEST_IMAGE_CAPTURE = 1;
@@ -65,7 +66,7 @@ public class Main2Activity extends AppCompatActivity{
     Uri resultUri;
     public RecyclerViewAdapter rev = new RecyclerViewAdapter(this,new ArrayList<Blog>(), new  ArrayList<String>());
 
-    StorageReference filepath;
+
 
 
     Bitmap bmp;

@@ -10,12 +10,15 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
@@ -35,38 +38,33 @@ import okhttp3.OkHttpClient;
 
 public class LoginActivity extends AppCompatActivity {
 
-    FirebaseAuth mAuth;
-    SignInButton googleButton;
-    static final int RC_SIGN_IN =1;
-    private static String TAG = "LoginActivity";
-    private GoogleApiClient mGoogleSignInClient;
-    OkHttpClient mClient;
-    JSONArray jsonArray;
-    String uuu;
-    ProgressDialog mprogress;
+    private static final int RC_SIGN_IN = 1;
+    private TextView mStatusTextView;
+    private TextView mDetailTextView;
+    private GoogleSignInClient mGoogleSignInClient;
+    Button googleButton;
+    private FirebaseAuth mAuth=FirebaseAuth.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        mprogress = new ProgressDialog(this);
-                // ...
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_login );
 
-        mAuth = FirebaseAuth.getInstance();
-        googleButton = (SignInButton) findViewById(R.id.googleButton);
-        // Configure Google Sign In
+        // GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        //.requestIdToken(getString(R.string.default_web_client_id))
+        //.requestEmail()
+        //.build();
+
+        googleButton = (Button)findViewById(R.id.googleButton);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        mGoogleSignInClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-                    }
-                })
-                .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
-                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+
         googleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,10 +74,14 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleSignInClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+
+    public void signIn()
+    {
+
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent,RC_SIGN_IN);
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -92,17 +94,14 @@ public class LoginActivity extends AppCompatActivity {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
-                mprogress.setMessage("Signing In you..... ");
-                mprogress.show();
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e);
+                Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                 // ...
-                mprogress.dismiss();
-
             }
         }
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -112,17 +111,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser user) {
-
         if (user != null) {
             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
             startActivity(intent);
             finish();
-
         }
+
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -131,21 +128,17 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            mprogress.dismiss();
-                            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                            startActivity(intent);
-                            finish();
-
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this,"Authentication Failed",Toast.LENGTH_SHORT).show();
+                            //Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
+                            updateUI(null);
                         }
-
 
                         // ...
                     }
                 });
     }
+
 }

@@ -13,15 +13,19 @@
         android:layout_height="wrap_content"
         android:background="@mipmap/dsfds"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
-    <com.google.android.gms.common.SignInButton
+        android:layout_centerHorizontal="true"
+        android:id="@+id/imageView" />
+
+    <Button
+        android:id="@+id/googleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:text="Sign In"
+        android:background="@drawable/common_google_signin_btn_text_light"
+        android:layout_alignBottom="@+id/imageView"
         android:layout_centerHorizontal="true"
-        android:paddingTop="250dp"
-        android:id="@+id/googleButton">
+        android:layout_marginBottom="104dp">
 
-    </com.google.android.gms.common.SignInButton>
+    </Button>
 
 </RelativeLayout>

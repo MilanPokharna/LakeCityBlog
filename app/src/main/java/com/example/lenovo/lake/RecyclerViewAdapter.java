@@ -77,10 +77,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 if (dataSnapshot.child("upVotes").hasChild(mAuth.getCurrentUser().getUid()))
                 {
                     holder.uplike.setImageResource(R.mipmap.bluelike);
+                    holder.downlike.setImageResource(R.mipmap.unlikethumb);
                 }
                 else if (dataSnapshot.child("downVotes").hasChild(mAuth.getCurrentUser().getUid()))
                 {
+                    holder.uplike.setImageResource(R.mipmap.likethumb);
                     holder.downlike.setImageResource(R.mipmap.redlike);
+                }
+                else
+                {
+                    holder.uplike.setImageResource(R.mipmap.likethumb);
+                    holder.downlike.setImageResource(R.mipmap.unlikethumb);
                 }
             }
 
@@ -94,13 +101,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View view) {
             mlike= mychild.child(key);
-            mlike.addListenerForSingleValueEvent(new ValueEventListener() {
+            mlike.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.child("upVotes").hasChild(mAuth.getCurrentUser().getUid()) || dataSnapshot.child("downVotes").hasChild(mAuth.getCurrentUser().getUid()) )
+                    if(dataSnapshot.child("upVotes").hasChild(mAuth.getCurrentUser().getUid()) )
                     {
 
                     }
+                    else if (dataSnapshot.child("downVotes").hasChild(mAuth.getCurrentUser().getUid()))
+                    {
+
+                    }
+
 //                    else if(dataSnapshot.child("downVotes").hasChild(mAuth.getCurrentUser().getUid()))
 //                    {
 //                        blog.decdownCounter();
@@ -142,7 +154,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 mlike.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.child("downVotes").hasChild(mAuth.getCurrentUser().getUid()) || dataSnapshot.child("upVotes").hasChild(mAuth.getCurrentUser().getUid()) )
+                        if(dataSnapshot.child("downVotes").hasChild(mAuth.getCurrentUser().getUid()) )
+                        {
+
+                        }
+                        else if (dataSnapshot.child("upVotes").hasChild(mAuth.getCurrentUser().getUid()))
                         {
 
                         }
