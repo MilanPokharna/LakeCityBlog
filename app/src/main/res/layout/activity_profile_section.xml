@@ -1,42 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:layout_margin="16dp">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:id="@+id/relative">
-
+    android:layout_height="match_parent">
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+        android:padding="10sp"
+        android:id="@+id/ll">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImage"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:src="@mipmap/camera_ion" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:text="ABC"
-            android:layout_margin="10sp"
-            android:layout_below="@+id/profileImage"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="10sp"
             android:id="@+id/UserName"/>
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:text="Email"
             android:layout_margin="10sp"
-            android:layout_below="@+id/UserName"
             android:id="@+id/Email"/>
+    </LinearLayout>
+</LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_below="@id/ll"
+        android:id="@+id/text"
+        android:text="Your Posts"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NO POSTS"
+        android:layout_below="@id/text"
+        android:id="@+id/nopost"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text"
+            android:layout_margin="10sp">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/userrecyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
 
+            </android.support.v7.widget.RecyclerView>
+        </ScrollView>
         <Button
             android:id="@+id/signout"
             android:layout_width="match_parent"
@@ -48,4 +78,3 @@
             android:textStyle="italic" />
     </RelativeLayout>
 
-</LinearLayout>

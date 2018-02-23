@@ -107,8 +107,9 @@ public class Main2Activity extends AppCompatActivity{
         closebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectedImage = Uri.parse("");
+                selectedImage=null;
                 gallery.setVisibility(View.GONE);
+                closebutton.setVisibility( View.GONE );
 
             }
         });
@@ -152,13 +153,21 @@ public class Main2Activity extends AppCompatActivity{
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(Main2Activity.this,MainActivity.class);
+        finish();
+        startActivity(intent);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (resultCode == RESULT_OK) {
 
             if (requestCode == 1) {
                 CropImage.activity(selectedImage)
-                        .setAspectRatio(1,1)
+                        .setAspectRatio(16,9)
                         .start(this);
                 filepath = storeimage.child("photos").child(selectedImage.getLastPathSegment());
 
@@ -173,7 +182,7 @@ public class Main2Activity extends AppCompatActivity{
             } else if (requestCode == 2) {
                 selectedImage = data.getData();
                 CropImage.activity(selectedImage)
-                        .setAspectRatio(1,1)
+                        .setAspectRatio(16,9)
                         .start(this);
                 filepath = storeimage.child("photos").child(selectedImage.getLastPathSegment());
 
@@ -221,9 +230,9 @@ public class Main2Activity extends AppCompatActivity{
         String ed_text = pd.getText().toString().trim();
         String pd_text = title.getText().toString().trim();
 
-        if((ed_text.isEmpty() || ed_text.length() == 0 || ed_text.equals("") || ed_text == null) || (pd_text.isEmpty() || pd_text.length() == 0 || pd_text.equals("") || pd_text == null))
+        if(selectedImage == null ||(ed_text.isEmpty() || ed_text.length() == 0 || ed_text.equals("") || ed_text == null) || (pd_text.isEmpty() || pd_text.length() == 0 || pd_text.equals("") || pd_text == null))
         {
-            Toast.makeText(this,"Field can't be empty",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Field can't be empty ",Toast.LENGTH_SHORT).show();
             //EditText is empty
         }
         else {
@@ -238,7 +247,6 @@ public class Main2Activity extends AppCompatActivity{
                         }
                     });
                 }
-            Toast.makeText(this, "data uploading", Toast.LENGTH_SHORT).show();
             String postT = postTitle.getText().toString();
             String postU = username.getText().toString();
             String postD = postdes.getText().toString();
@@ -248,12 +256,13 @@ public class Main2Activity extends AppCompatActivity{
             mchild.child("profileImage").setValue(photoUrl.toString());
             mchild.child("upCounter").setValue("0");
             mchild.child("downCounter").setValue("0");
-            Toast.makeText(this, "data uploaded", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Post Uploaded", Toast.LENGTH_SHORT).show();
             rev.clear();
             startActivity(new Intent(Main2Activity.this,MainActivity.class));
 
             finish();
         }
     }
+
 }
 

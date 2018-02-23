@@ -29,6 +29,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseUser user;
     DatabaseReference databaseReference;
+    TextView text;
     public SwipeRefreshLayout swipeRefreshLayout;
     ProgressDialog progressDialog;
 
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-
+        text = (TextView)findViewById(R.id.delete);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         recyclerView.setHasFixedSize(true);
@@ -87,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this,MainActivity.class);
                         finish();
                         startActivity(intent);
+                        overridePendingTransition( 0, 0);
 
 
 //                        adapter = new RecyclerViewAdapter(MainActivity.this, list,stringList);
@@ -100,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
                 progressDialog = new ProgressDialog(MainActivity.this);
                 progressDialog.setMessage("Please Wait....");
                 progressDialog.show();
+                stringList.add("MainActivity");
                adapter = new RecyclerViewAdapter(MainActivity.this, list,stringList);
-
                 recyclerView.setAdapter(adapter);
 
                 progressDialog.dismiss();
@@ -117,14 +120,18 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(mLayoutManager);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationViewEx navigation = (BottomNavigationViewEx) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.enableAnimation(false);
+        navigation.enableShiftingMode(false);
+        navigation.enableItemShiftingMode(false);
+        navigation.setIconSize(56,36);
+        navigation.setTextSize(0);
 
 
 
