@@ -111,7 +111,6 @@ public class LoginActivity extends AppCompatActivity {
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show();
-                // ...
             }
         }
     }
