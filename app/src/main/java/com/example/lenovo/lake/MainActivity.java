@@ -92,11 +92,6 @@ public class MainActivity extends AppCompatActivity {
                         overridePendingTransition( 0, 0);
 
 
-//                        adapter = new RecyclerViewAdapter(MainActivity.this, list,stringList);
-//
-//                        recyclerView.setAdapter(adapter);
-
-
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 });
